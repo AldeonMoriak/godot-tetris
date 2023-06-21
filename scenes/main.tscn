@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ce0qkh2euaxwl"]
+[gd_scene load_steps=22 format=3 uid="uid://ce0qkh2euaxwl"]
 
 [ext_resource type="PackedScene" uid="uid://ctcdrkqdn4wdg" path="res://scenes/board.tscn" id="1_f6ong"]
 [ext_resource type="Texture2D" uid="uid://clu7wdylhvgca" path="res://assets/sprite/Blue.png" id="2_p1thy"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bai1gb44axbf4" path="res://assets/sprite/Red.png" id="8_xpq1g"]
 [ext_resource type="Texture2D" uid="uid://fma3hy0uus1k" path="res://assets/sprite/Yellow.png" id="9_s1k4f"]
 [ext_resource type="Script" path="res://scripts/board.gd" id="10_f8ynk"]
+[ext_resource type="PackedScene" uid="uid://dtvaypn58hrg1" path="res://scenes/piece.tscn" id="11_ial7l"]
+[ext_resource type="PackedScene" uid="uid://b1utmtb0easvg" path="res://scenes/ghost.tscn" id="12_335ns"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_353kt"]
 resource_name = "blue"
@@ -83,3 +85,7 @@ z_index = 2
 tile_set = SubResource("TileSet_m71vb")
 format = 2
 script = ExtResource("10_f8ynk")
+
+[node name="Piece" parent="." instance=ExtResource("11_ial7l")]
+
+[node name="Ghost" parent="." instance=ExtResource("12_335ns")]

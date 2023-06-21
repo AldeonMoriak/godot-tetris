@@ -12,7 +12,7 @@ texture_region_size = Vector2i(192, 192)
 tile_size = Vector2i(192, 192)
 sources/1 = SubResource("TileSetAtlasSource_s5hep")
 
-[node name="Node2D" type="Node2D"]
+[node name="PlayGround" type="Node2D"]
 position = Vector2(960, 1920)
 
 [node name="Border" type="Sprite2D" parent="."]

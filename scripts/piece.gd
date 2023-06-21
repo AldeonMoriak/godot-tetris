@@ -4,13 +4,13 @@ extends Node2D
 var data
 var cells
 var board: Board
-var current_rotation_index = 0
+var current_rotation_index = 3
 
 var step_delay = 1.0
 var lock_delay = 0.5
 
 var lock_time = 0
-
+var prev_move_time = 0
 
 func _ready():
 	board = get_tree().get_first_node_in_group("board")
@@ -18,35 +18,44 @@ func _ready():
 
 func _process(delta):
 	lock_time += delta
-	if Input.is_action_just_pressed("move_left"):
-		move(Vector2.LEFT)
-	elif Input.is_action_just_pressed("move_right"):
-		move(Vector2.RIGHT)
-	if Input.is_action_just_pressed("move_down"):
-		move(Vector2.DOWN)
+	prev_move_time += delta
+	board.clear_piece(self)
+	if prev_move_time > 0.15:
+		if Input.is_action_pressed("move_left"):
+			prev_move_time = 0		
+			move(Vector2.LEFT)
+		elif Input.is_action_pressed("move_right"):
+			prev_move_time = 0					
+			move(Vector2.RIGHT)
+		if Input.is_action_pressed("move_down"):
+			prev_move_time = 0					
+			move(Vector2.DOWN)
 	if Input.is_action_just_pressed("hard_drop"):
 		hard_drop()
 	if Input.is_action_just_pressed('rotate_right'):
 		rotate_piece(-1)
 	if Input.is_action_just_pressed('rotate_left'):
 		rotate_piece(1)
+	board.set_piece(self)
+
 
 func initialize(p, piece_data):
 	position = p
 	data = piece_data
 	cells = piece_data.cells
-	current_rotation_index = 0
+	current_rotation_index = 3
 	$StepTimer.start(step_delay)
 	lock_time = 0.0
 
 func step():
 	$StepTimer.start(step_delay)
+	board.clear_piece(self)
 	move(Vector2.DOWN)
 	if lock_time > lock_delay:
 		lock()
 
 func lock():
-	board.set_place(self)
+	board.set_piece(self, true)
 	board.clear_lines()
 	board.spawn_piece()
 
@@ -62,8 +71,10 @@ func rotate_piece(direction: int):
 	if not test_wallkicks(current_rotation_index, direction):
 		current_rotation_index = original_rotation_index
 		apply_rotation(-direction)
+#	board.set_piece(self)
 
 func apply_rotation(direction: int):
+#	board.clear_piece(self)
 	var local_cells = []
 	for i in range(cells.size()):
 		var cell: Vector2 = cells[i]
@@ -103,9 +114,7 @@ func move(translation: Vector2) -> bool:
 	new_position.y += translation.y
 	var valid = board.is_move_valid(self, new_position)
 	if valid:
-		board.clear_piece()
 		position = new_position
-		board.set_piece(self)
 		lock_time = 0
 	return valid
 	
