@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmj0yty1pnda3"]
+
+[ext_resource type="Script" path="res://scripts/GameCamera.gd" id="1_oil5v"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3uimy"]
+seed = 8888
+
+[node name="GameCamera" type="Camera2D" groups=["camera"]]
+zoom = Vector2(0.9, 0.9)
+script = ExtResource("1_oil5v")
+shake_noise = SubResource("FastNoiseLite_3uimy")

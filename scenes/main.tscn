@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://ce0qkh2euaxwl"]
+[gd_scene load_steps=23 format=3 uid="uid://ce0qkh2euaxwl"]
 
+[ext_resource type="PackedScene" uid="uid://cmj0yty1pnda3" path="res://scenes/game_camera.tscn" id="1_32c3u"]
 [ext_resource type="PackedScene" uid="uid://ctcdrkqdn4wdg" path="res://scenes/board.tscn" id="1_f6ong"]
 [ext_resource type="Texture2D" uid="uid://clu7wdylhvgca" path="res://assets/sprite/Blue.png" id="2_p1thy"]
 [ext_resource type="Texture2D" uid="uid://yqas7redqno6" path="res://assets/sprite/Cyan.png" id="3_rgyuo"]
@@ -74,9 +75,8 @@ sources/7 = SubResource("TileSetAtlasSource_v4su6")
 
 [node name="Main" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(960, 1920)
-zoom = Vector2(0.9, 0.9)
+[node name="Camera2D" parent="." instance=ExtResource("1_32c3u")]
+initial_position = Vector2(960, 1920)
 
 [node name="Node2D" parent="." instance=ExtResource("1_f6ong")]
 

@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://borkv3hheyqwr"]
-
-[ext_resource type="Script" path="res://scripts/Camera2D.gd" id="1_h2an5"]
-
-[node name="Camera2D" type="Camera2D"]
-position = Vector2(85, 168)
-script = ExtResource("1_h2an5")
-background_color = Color(0.407843, 0.0235294, 0.192157, 1)

@@ -62,6 +62,7 @@ func lock():
 func hard_drop():
 	while move(Vector2.DOWN):
 		continue
+	$"/root/Helpers".apply_camera_shake(1)
 	lock()
 
 func rotate_piece(direction: int):
