@@ -1,6 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://ce0qkh2euaxwl"]
+[gd_scene load_steps=25 format=3 uid="uid://ce0qkh2euaxwl"]
 
-[ext_resource type="PackedScene" uid="uid://cmj0yty1pnda3" path="res://scenes/game_camera.tscn" id="1_32c3u"]
+[ext_resource type="PackedScene" uid="uid://cb20bai2e5aea" path="res://scenes/game_camera.tscn" id="1_32c3u"]
 [ext_resource type="PackedScene" uid="uid://ctcdrkqdn4wdg" path="res://scenes/board.tscn" id="1_f6ong"]
 [ext_resource type="Texture2D" uid="uid://clu7wdylhvgca" path="res://assets/sprite/Blue.png" id="2_p1thy"]
 [ext_resource type="Texture2D" uid="uid://yqas7redqno6" path="res://assets/sprite/Cyan.png" id="3_rgyuo"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://scripts/board.gd" id="10_f8ynk"]
 [ext_resource type="PackedScene" uid="uid://dtvaypn58hrg1" path="res://scenes/piece.tscn" id="11_ial7l"]
 [ext_resource type="PackedScene" uid="uid://b1utmtb0easvg" path="res://scenes/ghost.tscn" id="12_335ns"]
+[ext_resource type="PackedScene" uid="uid://cnpb8dbwgphcp" path="res://scenes/next_piece_board.tscn" id="14_vpiei"]
+[ext_resource type="PackedScene" uid="uid://xyan6esk4sfi" path="res://scenes/reserved_piece.tscn" id="15_ixay0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_353kt"]
 resource_name = "blue"
@@ -74,9 +76,11 @@ sources/6 = SubResource("TileSetAtlasSource_e8cqu")
 sources/7 = SubResource("TileSetAtlasSource_v4su6")
 
 [node name="Main" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [189.0]
+metadata/_edit_vertical_guides_ = [2152.0]
 
 [node name="Camera2D" parent="." instance=ExtResource("1_32c3u")]
-initial_position = Vector2(960, 1920)
+position = Vector2(960, 1920)
 
 [node name="Node2D" parent="." instance=ExtResource("1_f6ong")]
 
@@ -89,3 +93,9 @@ script = ExtResource("10_f8ynk")
 [node name="Piece" parent="." instance=ExtResource("11_ial7l")]
 
 [node name="Ghost" parent="." instance=ExtResource("12_335ns")]
+
+[node name="NextPieceBoard" parent="." instance=ExtResource("14_vpiei")]
+position = Vector2(2152, 189)
+
+[node name="ReservedPiece" parent="." instance=ExtResource("15_ixay0")]
+position = Vector2(-857, 189)

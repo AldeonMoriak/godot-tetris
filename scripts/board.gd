@@ -3,11 +3,14 @@ extends TileMap
 var tile_size = tile_set.tile_size
 var half_tile_size = tile_size / 2
 @export var spawn_position := Vector2(4,0)
-
-@onready var piece_scene = preload("res://scenes/piece.tscn")
+@onready var next_piece_board = get_tree().get_first_node_in_group('next_piece')
+@onready var reserved_piece_board = get_tree().get_first_node_in_group('reserved_piece')
+var reserved_piece
 var piece: Piece
 var grid_size = Vector2(10,20)
 var grid = []
+
+var moves: Array[int] = []
 
 @export var tetromino_type: Data.TETROMINO
 var tetrominoes = {
@@ -40,8 +43,13 @@ func start_grid():
 			grid[y].append(null)
 
 func spawn_piece():
-	var random = randi() % tetrominoes.size()
+	if moves.size() < 5:
+		for i in range(5 - moves.size()):
+			var random = randi() % tetrominoes.size()
+			moves.append(random)
+	var random = moves.pop_front()
 	var data = tetrominoes[random]
+	next_piece_board.initialize(moves)
 	piece.initialize(spawn_position, data)
 	if is_move_valid(piece, spawn_position):
 		set_piece(piece)
@@ -52,6 +60,18 @@ func game_over():
 	clear()
 	start_grid()
 	spawn_piece()
+	reserved_piece = null
+	reserved_piece_board.clear()
+
+func swap_reserved_piece(node):
+	var temp = piece.data
+	if reserved_piece:
+		piece.initialize(spawn_position, reserved_piece)
+	else:
+		spawn_piece()
+	reserved_piece = temp
+	reserved_piece_board.initialize(reserved_piece)
+		
 
 func set_piece(node, is_permanent = false):
 	for i in range(node.cells.size()):

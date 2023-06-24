@@ -1,4 +1,4 @@
-class_name  Piece
+class_name Piece
 extends Node2D
 
 var data
@@ -11,6 +11,8 @@ var lock_delay = 0.5
 
 var lock_time = 0
 var prev_move_time = 0
+
+var can_reserve = true
 
 func _ready():
 	board = get_tree().get_first_node_in_group("board")
@@ -36,8 +38,14 @@ func _process(delta):
 		rotate_piece(-1)
 	if Input.is_action_just_pressed('rotate_left'):
 		rotate_piece(1)
+	if Input.is_action_just_pressed('reserve'):
+		reserve()
 	board.set_piece(self)
 
+func reserve():
+	if can_reserve:
+		board.swap_reserved_piece(data)
+		can_reserve = false
 
 func initialize(p, piece_data):
 	position = p
@@ -58,11 +66,12 @@ func lock():
 	board.set_piece(self, true)
 	board.clear_lines()
 	board.spawn_piece()
+	can_reserve = true
 
 func hard_drop():
 	while move(Vector2.DOWN):
 		continue
-	$"/root/Helpers".apply_camera_shake(1)
+	$"/root/Helpers".apply_camera_shake()
 	lock()
 
 func rotate_piece(direction: int):
