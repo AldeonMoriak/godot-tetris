@@ -62,6 +62,7 @@ func game_over():
 	spawn_piece()
 	reserved_piece = null
 	reserved_piece_board.clear()
+	$GameOverAudioPlayer.play()
 
 func swap_reserved_piece():
 	var temp = piece.data
@@ -109,6 +110,7 @@ func clear_line(row: int):
 			var cell_source_id = get_cell_source_id(0, Vector2i(col_index, row - 1))
 			set_cell(0, Vector2i(col_index, row), cell_source_id, Vector2i(0,0))
 		row -= 1
+	$ClearLinePlayer.play()
 
 func is_move_valid(p, new_position):
 	for cell_position in p.cells:

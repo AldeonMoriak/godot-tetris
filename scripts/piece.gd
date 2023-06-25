@@ -39,13 +39,14 @@ func _process(delta):
 	if Input.is_action_just_pressed('rotate_left'):
 		rotate_piece(1)
 	if Input.is_action_just_pressed('reserve'):
-		reserve()
+		hold()
 	board.set_piece(self)
 
-func reserve():
+func hold():
 	if can_reserve:
 		board.swap_reserved_piece()
 		can_reserve = false
+		$HoldAudioPlayer.play()
 
 func initialize(p, piece_data):
 	position = p
@@ -72,6 +73,7 @@ func hard_drop():
 	while move(Vector2.DOWN):
 		continue
 	$"/root/Helpers".apply_camera_shake()
+	$HardDropAudioPlayer.play()
 	lock()
 
 func rotate_piece(direction: int):
@@ -81,6 +83,8 @@ func rotate_piece(direction: int):
 	if not test_wallkicks(current_rotation_index, direction):
 		current_rotation_index = original_rotation_index
 		apply_rotation(-direction)
+#	else:
+#		$RotateAudioPlayer.play()
 #	board.set_piece(self)
 
 func apply_rotation(direction: int):
@@ -126,6 +130,7 @@ func move(translation: Vector2) -> bool:
 	if valid:
 		position = new_position
 		lock_time = 0
+		$MoveAudioPlayer.play()
 	return valid
 	
 func on_step_timer_timeout():
