@@ -82,7 +82,7 @@ metadata/_edit_vertical_guides_ = [2152.0]
 [node name="Camera2D" parent="." instance=ExtResource("1_32c3u")]
 position = Vector2(960, 1920)
 
-[node name="Node2D" parent="." instance=ExtResource("1_f6ong")]
+[node name="Playground" parent="." instance=ExtResource("1_f6ong")]
 
 [node name="Board" type="TileMap" parent="." groups=["board"]]
 z_index = 2

@@ -44,7 +44,7 @@ func _process(delta):
 
 func reserve():
 	if can_reserve:
-		board.swap_reserved_piece(data)
+		board.swap_reserved_piece()
 		can_reserve = false
 
 func initialize(p, piece_data):

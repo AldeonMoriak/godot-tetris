@@ -63,7 +63,7 @@ func game_over():
 	reserved_piece = null
 	reserved_piece_board.clear()
 
-func swap_reserved_piece(node):
+func swap_reserved_piece():
 	var temp = piece.data
 	if reserved_piece:
 		piece.initialize(spawn_position, reserved_piece)
