@@ -1,28 +1,46 @@
 name: Build Godot Project
 
 on:
-  push: {}
-  pull_request: {}
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
 
 jobs:
-  Godot:
+  export_web:
+    name: Export
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform: [Linux/X11, Windows Desktop, Android, Web]
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           lfs: true
-      - name: Build
-        id: build
-        uses: manleydev/build-godot-action@v1.5.0
+
+      - name: Tetris
+        id: export
+        uses: firebelley/godot-export@v5.0.0
         with:
-          name: ${{ matrix.platform == 'Linux/X11' && 'linux' || matrix.platform }}-build
-          preset: ${{ matrix.platform }}
-          debugMode: "true"
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.2.1-stable/Godot_v4.2.1-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.2.1-stable/Godot_v4.2.1-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: true
+          use_preset_export_path: true
+          export_debug: false
+
+      - name: Upload web build to itch
+        uses: KikimoraGames/itch-publish@v0.0.3
         with:
-          name: Client - ${{ matrix.platform == 'Linux/X11' && 'linux' || matrix.platform }}
-          path: ${{ github.workspace }}/build
+          butlerApiKey: ${{ secrets.BUTLER_KEY }}
+          gameData: ./bin/web/web.zip
+          itchUsername: aldeonmoriak
+          itchGameId: tetris
+          buildChannel: html5
+
+      - name: Upload windows build to itch
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_KEY }}
+          gameData: ./bin/win/win.zip
+          itchUsername: aldeonmoriak
+          itchGameId: tetris
+          buildChannel: windows
