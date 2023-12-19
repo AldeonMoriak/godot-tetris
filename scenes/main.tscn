@@ -16,6 +16,7 @@ metadata/_edit_vertical_guides_ = [2152.0]
 position = Vector2(960, 1920)
 
 [node name="Playground" parent="." instance=ExtResource("1_f6ong")]
+position = Vector2(960, 1920)
 
 [node name="Board" parent="." instance=ExtResource("3_rkibj")]
 

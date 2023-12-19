@@ -1,0 +1,10 @@
+Node2D
+Node
+AudioStreamPlayer
+AudioStreamPlayer2D
+GridMap
+Sprite2D
+TileMap
+Camera2D
+TextureRect
+GridContainer

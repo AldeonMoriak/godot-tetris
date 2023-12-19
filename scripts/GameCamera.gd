@@ -1,5 +1,5 @@
-class_name CustomCamera
 extends Camera2D
+class_name CustomCamera
 
 func apply_shake():
 	var tween = get_tree().create_tween()
