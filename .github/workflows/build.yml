@@ -16,7 +16,7 @@ jobs:
         with:
           lfs: true
 
-      - name: Tetris
+      - name: godot-tetris
         id: export
         uses: firebelley/godot-export@v5.0.0
         with:
