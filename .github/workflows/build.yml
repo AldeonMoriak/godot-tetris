@@ -18,7 +18,7 @@ jobs:
         id: build
         uses: manleydev/build-godot-action@v1.5.0
         with:
-          name: ${{ matrix.platform }}-build
+          name: ${{ matrix.platform == 'Linux/X11' && 'linux' || matrix.platform }}-build
           preset: ${{ matrix.platform }}
           debugMode: "true"
       - name: Upload Artifact
