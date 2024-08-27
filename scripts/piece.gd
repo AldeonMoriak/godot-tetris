@@ -24,14 +24,15 @@ func _process(delta):
 	board.clear_piece(self)
 	if prev_move_time > 0.15:
 		if Input.is_action_pressed("move_left"):
-			prev_move_time = 0		
+			prev_move_time = 0
 			move(Vector2.LEFT)
 		elif Input.is_action_pressed("move_right"):
-			prev_move_time = 0					
+			prev_move_time = 0
 			move(Vector2.RIGHT)
 		if Input.is_action_pressed("move_down"):
-			prev_move_time = 0					
+			prev_move_time = 0
 			move(Vector2.DOWN)
+			$StepTimer.start()
 	if Input.is_action_just_pressed("hard_drop"):
 		hard_drop()
 	if Input.is_action_just_pressed('rotate_right'):

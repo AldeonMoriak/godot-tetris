@@ -120,4 +120,3 @@ func is_move_valid(p, new_position):
 		if grid[tile_position.y][tile_position.x] and tile_position.y >= 0 and tile_position.x >= 0:
 			return false
 	return true
-
