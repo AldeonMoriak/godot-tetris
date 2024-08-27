@@ -9,6 +9,8 @@ var current_rotation_index = 3
 var step_delay = 1.0
 var lock_delay = 0.5
 
+var pressed_button = ''
+
 var lock_time = 0
 var prev_move_time = 0
 
@@ -22,14 +24,17 @@ func _process(delta):
 	lock_time += delta
 	prev_move_time += delta
 	board.clear_piece(self)
-	if prev_move_time > 0.15:
+	if prev_move_time > 0.12:
 		if Input.is_action_pressed("move_left"):
+			pressed_button = 'move_left'
 			prev_move_time = 0
 			move(Vector2.LEFT)
 		elif Input.is_action_pressed("move_right"):
+			pressed_button = 'move_right'
 			prev_move_time = 0
 			move(Vector2.RIGHT)
 		if Input.is_action_pressed("move_down"):
+			pressed_button = 'move_down'
 			prev_move_time = 0
 			step()
 	if Input.is_action_just_pressed("hard_drop"):
