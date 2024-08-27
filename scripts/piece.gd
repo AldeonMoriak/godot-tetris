@@ -32,8 +32,6 @@ func _process(delta):
 		if Input.is_action_pressed("move_down"):
 			prev_move_time = 0
 			step()
-			#move(Vector2.DOWN)
-			#$StepTimer.start()
 	if Input.is_action_just_pressed("hard_drop"):
 		hard_drop()
 	if Input.is_action_just_pressed('rotate_right'):
@@ -85,6 +83,8 @@ func rotate_piece(direction: int):
 	if not test_wallkicks(current_rotation_index, direction):
 		current_rotation_index = original_rotation_index
 		apply_rotation(-direction)
+	else:
+		lock_time = 0
 #	else:
 #		$RotateAudioPlayer.play()
 #	board.set_piece(self)
@@ -131,7 +131,8 @@ func move(translation: Vector2) -> bool:
 	var valid = board.is_move_valid(self, new_position)
 	if valid:
 		position = new_position
-		lock_time = 0
+		if translation == Vector2.DOWN:
+			lock_time = 0
 		$MoveAudioPlayer.play()
 	return valid
 	
